@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: toolcall.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/langGraph/toolcall.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}/src/langGraph",
+      "env": {
+        "LANGSMITH_TRACING": "false"
+      }
+    }
+  ]
+}
