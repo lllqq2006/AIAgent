@@ -1,21 +1,22 @@
 using namespace std;
 #include <string>
 #include <iostream>
-#include <climits>
+#include <algorithm>
+#include <vector>
 #include "atoi.h"
 
-namespace LeetCode
-{
+namespace LeetCode {
+
 	int myatoi(std::string s)
 	{
-		char array[200] = {-1};
+		char array[200] = { -1 };
 
 		int step = 0;
 		int currentIndex = 0;
 		int currentCount = 0;
-		for(int i = 0; i < s.length(); i++)
+		for (int i = 0; i < s.length(); i++)
 		{
-			if(s[i] == ' ')
+			if (s[i] == ' ')
 			{
 				continue;
 			}
@@ -29,7 +30,7 @@ namespace LeetCode
 
 		for (int i = currentIndex; i < s.length(); i++)
 		{
-			if (step == 1 &&(s[i] == '-' || s[i] == '+'))
+			if (step == 1 && (s[i] == '-' || s[i] == '+'))
 			{
 				step = 2;
 				array[currentCount] = s[i];
@@ -54,79 +55,118 @@ namespace LeetCode
 		{
 			cout << array[i] << endl;
 		}
-		
-		int sign = 1;
-		long long sum = 0;
+
+		int sum = 0;
+		int presum = 0;
 		bool overlimit = false;
 		for (int i = 0; i < currentCount; i++)
 		{
-			if (array[i] == '-')
-			{
-				sign = -1;
-				continue;
-			}
-			if (array[i] == '+')
+			if ((array[i] == '-' || array[i] == '+'))
 			{
 				continue;
 			}
 			sum = sum * 10 + (array[i] - '0');
 
-			if (sign == 1 && sum > INT_MAX)
-			{
-				overlimit = true;
-				sum = INT_MAX;
-				break;
-			}
-			if (sign == -1 && -sum < INT_MIN)
-			{
-				overlimit = true;
-				sum = INT_MIN;
-				break;
-			}
 		}
 
-		if (overlimit)
-		{
-			return (int)sum;
-		}
-
-		return (int)(sign * sum);
-	}
-
-	int atoi(std::string s)
-	{
-		int cur = 0, sign = 1, res = 0;
-		//处理空格
-		while( cur < s.length() && s[cur] == ' ')
-		{
-			cur++;
-		}
-		//处理符号
-		if(cur < s.length() && (s[cur] == '+' || s[cur] == '-'))
-		{
-			sign = (s[cur] == '-') ? -1 : 1;
-			cur++;
-		}
-
-		//处理数字
-		while(cur < s.length() && isdigit(s[cur]))
-		{
-			int digit = s[cur] - '0';
-			//处理溢出
-			if(res > (INT_MAX - digit) / 10)
-			{
-				return (sign == 1) ? INT_MAX : INT_MIN;
-			}
-			res = res * 10 + digit;
-			cur++;
-		}
-		return res * sign;
-
+		return sum;
 	}
 
 	vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<int> temp;
 		vector<vector<int>> result;
-		temp = nums.sort();
-    }
+		std::sort(nums.begin(), nums.end());
+		for (int i = 0; i <= nums.size() - 3; i++)
+		{
+			if (nums[i] > 0)
+			{
+				break;
+			}
+
+			if (i > 0 && nums[i] == nums[i - 1])
+			{
+				continue;
+			}
+
+			int start = i + 1, end = nums.size() - 1;
+
+			while (start < end)
+			{
+				if (nums[i] + nums[start] + nums[end] == 0)
+				{
+					vector<int> temp = { nums[i], nums[start], nums[end] };
+					result.push_back(temp);
+					while (start < end && nums[start] == nums[start + 1])
+					{
+						start++;
+					}
+					while (start < end && nums[end] == nums[end - 1])
+					{
+						end--;
+					}
+					start++;
+					end--;
+				}
+				else if (nums[i] + nums[start] + nums[end] > 0)
+				{
+					end--;
+				}
+				else
+				{
+					start++;
+				}
+			}
+		}
+		return result;
+
+	}
+
+	vector<vector<int>> fourSum(vector<int>& nums, int target) {
+		std::sort(nums.begin(), nums.end());
+
+		vector<vector<int>> result;
+
+		for (int i = 0;i < nums.size() -3; i++) {
+			if (i > 0 && nums[i] == nums[i - 1])
+			{
+				continue;
+			}
+			for (int j = i + 1; j < nums.size() - 2; j++)
+			{
+				if (j > i + 1 && nums[j] == nums[j - 1])
+				{
+					continue;
+				}
+
+				int start = j + 1, end = nums.size() - 1;
+				while (start < end)
+				{
+					int tempT = target - nums[i] - nums[j];
+					int tempSum = nums[start] + nums[end];
+					if (tempSum == tempT)
+					{
+						result.push_back({ nums[i], nums[j], nums[start], nums[end] });
+						while (start < end && nums[start] == nums[start + 1])
+						{
+							start++;
+						}
+						while (start < end && nums[end] == nums[end - 1])
+						{
+							end--;
+						}
+						start++;
+						end--;
+					}
+					else if (tempSum > tempT)
+					{
+						end--;
+					}
+					else
+					{
+						start++;
+					}
+				}
+			}
+		}
+		return result;
+	}
 }
