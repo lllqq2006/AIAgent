@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include "./atoi.h"
 
 int lengthOfLongestSubstring(std::string s) {
@@ -44,7 +45,13 @@ int lengthOfLongestSubstring(std::string s) {
 
 int main()
 {
-    std::cout << myatoi("-23");
+    
+    vector<int> nums = { -1, 0, 1, 2, -1, -4 };
+    std::sort(nums.begin(), nums.end());
+    for(int i = 0; i < nums.size(); i++)
+    {
+        std::cout << nums[i] << " ";
+    }
     std::cout << "\n";
 }
 
