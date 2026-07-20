@@ -1,0 +1,3 @@
+﻿  atoi.cpp
+C:\src\github\AIAgent\src\leetcode\C++\LeetCode\LeetCode\atoi.cpp(66,14): warning C4553: '==': result of expression not used; did you intend '='?
+  LeetCode.vcxproj -> C:\src\github\AIAgent\src\leetcode\C++\LeetCode\x64\Debug\LeetCode.exe
