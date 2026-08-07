@@ -3,6 +3,7 @@ from pathlib import Path
 from langgraph.checkpoint.memory import InMemorySaver
 from langchain_tavily import TavilySearch
 import os
+from dotenv import load_dotenv
 from langchain_core.tools import tool
 from langchain.chat_models import init_chat_model
 from langgraph.types import Command, interrupt
@@ -10,6 +11,8 @@ from langgraph.graph import END, START, StateGraph, add_messages
 from BasicToolNode import BasicToolNode
 from displayGraph import displayGraph
 from langgraph.prebuilt import ToolNode, tools_condition
+
+load_dotenv()
 
 memory = InMemorySaver()
 

@@ -1,1 +1,13 @@
 .vs
+
+# 环境变量 / 密钥
+.env
+.env.local
+# 目标文件目录
+dist
+
+#debug release 文件目录
+**/Debug/
+**/Release/
+**/x64/
+**/x86/

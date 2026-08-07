@@ -4,54 +4,34 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <map>
 #include "./atoi.h"
+using namespace std;
 
-int lengthOfLongestSubstring(std::string s) {
-    int start = 0, end = 1;
-    int maxlength = 0;
-    int n = s.length();
-	if (s.length() == 0)
-	{
-		return 0;
-	}
-	if (s.length() == 1)
-	{
-		return 1;
-	}
-    while (end < n)
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    map<string, vector<string>> maps;
+
+    for (int i = 0; i < strs.size();i++)
     {
-        if (start == end)
-        {
-            end++;
-            maxlength = std::max(maxlength, end - start);
-        }
-        else
-        {
-            for (int i = start; i < end; i++)
-            {
-                if (s[i] == s[end])
-                {
-                    start = i + 1;
-                    break;
-                }
-            }
-            end++;
-            maxlength = std::max(maxlength, end - start);
-        }
+		string origin = strs[i];
+        sort(strs[i].begin(), strs[i].end());
+		maps[strs[i]].push_back(origin);
     }
 
-    return maxlength;
+    vector<vector<string>> result;
+	for (const auto& pair : maps)
+	{
+		result.push_back(pair.second);
+	}
+	return result;
 }
+
+
 
 int main()
 {
-    
-    vector<int> nums = { -1, 0, 1, 2, -1, -4 };
-    std::sort(nums.begin(), nums.end());
-    for(int i = 0; i < nums.size(); i++)
-    {
-        std::cout << nums[i] << " ";
-    }
+	//cout << nextGreaterElement(12431) << endl;
+
     std::cout << "\n";
 }
 

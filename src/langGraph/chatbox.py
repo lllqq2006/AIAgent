@@ -1,6 +1,7 @@
 
 from typing import Annotated
 import os
+from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from langchain.chat_models import init_chat_model
 from typing_extensions import TypedDict
@@ -9,6 +10,8 @@ from langgraph.graph import StateGraph, START
 from langgraph.graph.message import add_messages
 
 from langgraph.checkpoint.memory import MemorySaver
+
+load_dotenv()
 
 memory = MemorySaver()
 
